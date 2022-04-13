@@ -1,0 +1,2 @@
+export PYTHONIOENCODING=UTF-8
+export PYTHONPATH=../../trainer:$PYTHONPATH

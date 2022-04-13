@@ -1,0 +1,83 @@
+job_type: dense
+# model config
+nnet_proto: conformer_aed
+model_conf:
+    encoder_conf:
+        blank_idx: 0
+        attention_heads: 8
+        attention_dim: 512
+        linear_units: 2048
+        num_blocks: 6
+        dropout_rate: 0.1
+        positional_dropout_rate: 0.1
+        attention_dropout_rate: 0.0
+        input_layer: conv2d
+        pos_enc_layer_type: rel_pos
+        normalize_before: true
+        use_dynamic_chunk: false
+        selfattention_layer_type: rel_selfattn 
+        activation_type: swish
+        use_cnn_module: true
+        cnn_module_kernel: 15
+        causal: false
+        cnn_module_norm: layer_norm
+        conv_subsample_in_ch: 1
+    decoder_type: transformer
+    decoder_conf:
+        attention_heads: 8
+        linear_units: 2048
+        num_blocks: 4
+        dropout_rate: 0.1
+        positional_dropout_rate: 0.1
+        self_attention_dropout_rate: 0.0
+        src_attention_dropout_rate: 0.0
+    reverse_weight: 0.0
+    ctc_weight: 0.3
+    lsm_weight: 0.1
+    length_normalize_loss: False
+dataset_proto: dataset
+dataset_conf:
+    filter_conf:
+        max_length: 1200
+        min_length: 10
+        token_max_length: 100
+        token_min_length: 1
+    resample_conf:
+        resample_rate: 16000
+    speed_perturb: false
+    fbank_conf:
+        num_mel_bins: 80
+        frame_shift: 10
+        frame_length: 25
+        dither: 1.0
+    spec_aug: true
+    spec_aug_conf:
+        num_t_mask: 2
+        num_f_mask: 2
+        max_t: 50
+        max_f: 30
+    shuffle: true
+    shuffle_conf:
+        shuffle_size: 1500
+    sort: true
+    sort_conf:
+        sort_size: 1000  # sort_size should be less than shuffle_size
+    batch_conf:
+        batch_type: 'static' # static or dynamic
+        batch_size: 32
+# train conf
+train_conf:
+    sync_method: ddp
+    lr: 0.001
+    optim: adam
+    schedule_type: warmup_noam
+    schedule_conf:
+        warmup_steps: 5000
+        min_lr: 0.00000001
+        max_grad_norm: 5
+    accum_grad: 4
+    early_stop_count: 30
+    num_recent_models: 30
+    max_epochs: 10
+    log_period: 1000
+    valid_period: -1 

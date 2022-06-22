@@ -28,7 +28,7 @@ conda install pytorch==1.9.0 torchvision==0.10.0 torchaudio==0.9.0 cudatoolkit=1
 
 ## Performance Benchmark
 
-We evaluate our system on the public [WenetSpeech](https://github.com/wenet-e2e/WenetSpeech) dataset and the recipe of `Conformer-MoE` is provided.  CER results are listed below and the first three lines are provided by [WenetSpeech](https://github.com/wenet-e2e/WenetSpeech)
+We evaluate our system on the public [WenetSpeech](https://github.com/wenet-e2e/WenetSpeech) dataset and the recipe of `Conformer-MoE` is provided(trained on 24 V100).  CER results are listed below and the first three lines are provided by [WenetSpeech](https://github.com/wenet-e2e/WenetSpeech)
 
 |      Toolkit       |   Dev    | Test_net | Test_Meeting | AIShell-1 |
 | :----------------: | :------: | :------: | :----------: | :-------: |
